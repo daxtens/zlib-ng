@@ -17,14 +17,6 @@
 #  endif
 #endif
 
-#ifdef __STDC_VERSION__
-#  if __STDC_VERSION__ >= 199901L
-#    ifndef STDC99
-#      define STDC99
-#    endif
-#  endif
-#endif
-
 /* Maximum value for memLevel in deflateInit2 */
 #ifndef MAX_MEM_LEVEL
 #  define MAX_MEM_LEVEL 9
