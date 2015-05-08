@@ -22,15 +22,15 @@
    buffer, or Z_DATA_ERROR if the input data was corrupted.
 */
 int ZEXPORT uncompress (dest, destLen, source, sourceLen)
-    Byte *dest;
+    unsigned char *dest;
     uLong *destLen;
-    const Byte *source;
+    const unsigned char *source;
     uLong sourceLen;
 {
     z_stream stream;
     int err;
 
-    stream.next_in = (const Byte *)source;
+    stream.next_in = (const unsigned char *)source;
     stream.avail_in = (uInt)sourceLen;
     stream.next_out = dest;
     stream.avail_out = (uInt)*destLen;

@@ -226,7 +226,7 @@ int ZEXPORT gzwrite(file, buf, len)
 
         /* directly compress user buffer to file */
         strm->avail_in = len;
-        strm->next_in = (const Byte *)buf;
+        strm->next_in = (const unsigned char *)buf;
         state->x.pos += len;
         if (gz_comp(state, Z_NO_FLUSH) == -1)
             return 0;

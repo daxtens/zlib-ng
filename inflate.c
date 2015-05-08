@@ -373,7 +373,7 @@ void makefixed()
    output will fall in the output data, making match copies simpler and faster.
    The advantage may be dependent on the size of the processor's data caches.
  */
-local int updatewindow(z_stream *strm, const Byte *end, unsigned copy)
+local int updatewindow(z_stream *strm, const unsigned char *end, unsigned copy)
 {
     struct inflate_state *state;
     unsigned dist;
@@ -1261,7 +1261,7 @@ z_stream *strm;
 
 int ZEXPORT inflateGetDictionary(strm, dictionary, dictLength)
 z_stream *strm;
-Byte *dictionary;
+unsigned char *dictionary;
 uInt *dictLength;
 {
     struct inflate_state *state;
@@ -1284,7 +1284,7 @@ uInt *dictLength;
 
 int ZEXPORT inflateSetDictionary(strm, dictionary, dictLength)
 z_stream *strm;
-const Byte *dictionary;
+const unsigned char *dictionary;
 uInt dictLength;
 {
     struct inflate_state *state;
