@@ -428,10 +428,10 @@ uLong ZEXPORT crc32_combine64(crc1, crc2, len2)
 
 #ifdef X86_PCLMULQDQ_CRC
 #include "arch/x86/x86.h"
-extern void ZLIB_INTERNAL crc_fold_init(deflate_state *z_const s);
-extern void ZLIB_INTERNAL crc_fold_copy(deflate_state *z_const s,
-        unsigned char *dst, z_const unsigned char *src, long len);
-extern unsigned ZLIB_INTERNAL crc_fold_512to32(deflate_state *z_const s);
+extern void ZLIB_INTERNAL crc_fold_init(deflate_state *const s);
+extern void ZLIB_INTERNAL crc_fold_copy(deflate_state *const s,
+        unsigned char *dst, const unsigned char *src, long len);
+extern unsigned ZLIB_INTERNAL crc_fold_512to32(deflate_state *const s);
 #endif
 
 ZLIB_INTERNAL void crc_reset(deflate_state *const s)
