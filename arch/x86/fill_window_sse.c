@@ -22,7 +22,7 @@ ZLIB_INTERNAL void fill_window_sse(deflate_state *s)
     register unsigned n;
     register Pos *p;
     unsigned more;    /* Amount of free space at the end of the window. */
-    uInt wsize = s->w_size;
+    unsigned int wsize = s->w_size;
 
     Assert(s->lookahead < MIN_LOOKAHEAD, "already enough lookahead");
 
@@ -107,7 +107,7 @@ ZLIB_INTERNAL void fill_window_sse(deflate_state *s)
 
         /* Initialize the hash value now that we have some input: */
         if (s->lookahead + s->insert >= MIN_MATCH) {
-            uInt str = s->strstart - s->insert;
+            unsigned int str = s->strstart - s->insert;
             s->ins_h = s->window[str];
             if (str >= 1)
                 UPDATE_HASH(s, s->ins_h, str + 1 - (MIN_MATCH-1));

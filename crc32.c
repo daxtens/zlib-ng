@@ -200,7 +200,7 @@ const z_crc_t * ZEXPORT get_crc_table()
 unsigned long ZEXPORT crc32(crc, buf, len)
     unsigned long crc;
     const unsigned char *buf;
-    uInt len;
+    unsigned int len;
 {
     if (buf == Z_NULL) return 0UL;
 

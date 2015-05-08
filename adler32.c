@@ -65,7 +65,7 @@ local uLong adler32_combine_ (uLong adler1, uLong adler2, z_off64_t len2);
 uLong ZEXPORT adler32(adler, buf, len)
     uLong adler;
     const unsigned char *buf;
-    uInt len;
+    unsigned int len;
 {
     unsigned long sum2;
     unsigned n;

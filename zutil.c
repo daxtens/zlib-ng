@@ -35,7 +35,7 @@ uLong ZEXPORT zlibCompileFlags()
     uLong flags;
 
     flags = 0;
-    switch ((int)(sizeof(uInt))) {
+    switch ((int)(sizeof(unsigned int))) {
     case 2:     break;
     case 4:     flags += 1;     break;
     case 8:     flags += 2;     break;
@@ -114,7 +114,7 @@ const char * ZEXPORT zError(err)
 void ZLIB_INTERNAL *zcalloc (void *opaque, unsigned items, unsigned size)
 {
     if (opaque) items += size - size; /* make compiler happy */
-    return sizeof(uInt) > 2 ? (void *)malloc(items * size) :
+    return sizeof(unsigned int) > 2 ? (void *)malloc(items * size) :
                               (void *)calloc(items, size);
 }
 

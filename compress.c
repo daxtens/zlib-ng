@@ -30,9 +30,9 @@ int ZEXPORT compress2 (dest, destLen, source, sourceLen, level)
     int err;
 
     stream.next_in = (const unsigned char *)source;
-    stream.avail_in = (uInt)sourceLen;
+    stream.avail_in = (unsigned int)sourceLen;
     stream.next_out = dest;
-    stream.avail_out = (uInt)*destLen;
+    stream.avail_out = (unsigned int)*destLen;
     if ((uLong)stream.avail_out != *destLen) return Z_BUF_ERROR;
 
     stream.zalloc = (alloc_func)0;

@@ -1004,7 +1004,7 @@ local void compress_block(deflate_state *s, const ct_data *ltree, const ct_data 
         } /* literal or match pair ? */
 
         /* Check that the overlay between pending_buf and d_buf+l_buf is ok: */
-        Assert((uInt)(s->pending) < s->lit_bufsize + 2*lx,
+        Assert((unsigned int)(s->pending) < s->lit_bufsize + 2*lx,
                "pendingBuf overflow");
 
     } while (lx < s->last_lit);

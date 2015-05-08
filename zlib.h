@@ -84,18 +84,18 @@ extern "C" {
   even in case of corrupted input.
 */
 
-typedef void *(*alloc_func) (void *opaque, uInt items, uInt size);
+typedef void *(*alloc_func) (void *opaque, unsigned int items, unsigned int size);
 typedef void  (*free_func)  (void *opaque, void *address);
 
 struct internal_state;
 
 typedef struct z_stream_s {
     const unsigned char *next_in;     /* next input byte */
-    uInt     avail_in;  /* number of bytes available at next_in */
+    unsigned int     avail_in;  /* number of bytes available at next_in */
     uLong    total_in;  /* total number of input bytes read so far */
 
     unsigned char    *next_out; /* next output byte should be put there */
-    uInt     avail_out; /* remaining free space at next_out */
+    unsigned int     avail_out; /* remaining free space at next_out */
     uLong    total_out; /* total number of bytes output so far */
 
     const char *msg;  /* last error message, NULL if no error */
@@ -122,12 +122,12 @@ typedef struct gz_header_s {
     int     xflags;     /* extra flags (not used when writing a gzip file) */
     int     os;         /* operating system */
     unsigned char   *extra;     /* pointer to extra field or Z_NULL if none */
-    uInt    extra_len;  /* extra field length (valid if extra != Z_NULL) */
-    uInt    extra_max;  /* space at extra (only when reading header) */
+    unsigned int    extra_len;  /* extra field length (valid if extra != Z_NULL) */
+    unsigned int    extra_max;  /* space at extra (only when reading header) */
     unsigned char   *name;      /* pointer to zero-terminated file name or Z_NULL */
-    uInt    name_max;   /* space at name (only when reading header) */
+    unsigned int    name_max;   /* space at name (only when reading header) */
     unsigned char   *comment;   /* pointer to zero-terminated comment or Z_NULL */
-    uInt    comm_max;   /* space at comment (only when reading header) */
+    unsigned int    comm_max;   /* space at comment (only when reading header) */
     int     hcrc;       /* true if there was or will be a header crc */
     int     done;       /* true when done reading gzip header (not used
                            when writing a gzip file) */
@@ -584,7 +584,7 @@ ZEXTERN int ZEXPORT deflateInit2 (z_stream *strm,
 
 ZEXTERN int ZEXPORT deflateSetDictionary (z_stream *strm,
                                              const unsigned char *dictionary,
-                                             uInt  dictLength);
+                                             unsigned int  dictLength);
 /*
      Initializes the compression dictionary from the given byte sequence
    without producing any compressed output.  When using the zlib format, this
@@ -816,7 +816,7 @@ ZEXTERN int ZEXPORT inflateInit2 (z_stream *strm,
 
 ZEXTERN int ZEXPORT inflateSetDictionary (z_stream *strm,
                                              const unsigned char *dictionary,
-                                             uInt  dictLength);
+                                             unsigned int  dictLength);
 /*
      Initializes the decompression dictionary from the given uncompressed byte
    sequence.  This function must be called immediately after a call of inflate,
@@ -839,7 +839,7 @@ ZEXTERN int ZEXPORT inflateSetDictionary (z_stream *strm,
 
 ZEXTERN int ZEXPORT inflateGetDictionary (z_stream *strm,
                                              unsigned char *dictionary,
-                                             uInt  *dictLength);
+                                             unsigned int  *dictLength);
 /*
      Returns the sliding dictionary being maintained by inflate.  dictLength is
    set to the number of bytes in the dictionary, and that many bytes are copied
@@ -1106,7 +1106,7 @@ ZEXTERN uLong ZEXPORT zlibCompileFlags (void);
 /* Return flags indicating compile-time options.
 
     Type sizes, two bits each, 00 = 16 bits, 01 = 32, 10 = 64, 11 = other:
-     1.0: size of uInt
+     1.0: size of unsigned int
      3.2: size of uLong
      5.4: size of void * (pointer)
      7.6: size of z_off_t
@@ -1563,7 +1563,7 @@ ZEXTERN void ZEXPORT gzclearerr (gzFile file);
    library.
 */
 
-ZEXTERN uLong ZEXPORT adler32 (uLong adler, const unsigned char *buf, uInt len);
+ZEXTERN uLong ZEXPORT adler32 (uLong adler, const unsigned char *buf, unsigned int len);
 /*
      Update a running Adler-32 checksum with the bytes buf[0..len-1] and
    return the updated checksum.  If buf is Z_NULL, this function returns the
@@ -1594,7 +1594,7 @@ ZEXTERN uLong ZEXPORT adler32_combine (uLong adler1, uLong adler2,
    negative, the result has no meaning or utility.
 */
 
-ZEXTERN uLong ZEXPORT crc32   (uLong crc, const unsigned char *buf, uInt len);
+ZEXTERN uLong ZEXPORT crc32   (uLong crc, const unsigned char *buf, unsigned int len);
 /*
      Update a running CRC-32 with the bytes buf[0..len-1] and return the
    updated CRC-32.  If buf is Z_NULL, this function returns the required

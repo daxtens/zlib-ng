@@ -1262,7 +1262,7 @@ z_stream *strm;
 int ZEXPORT inflateGetDictionary(strm, dictionary, dictLength)
 z_stream *strm;
 unsigned char *dictionary;
-uInt *dictLength;
+unsigned int *dictLength;
 {
     struct inflate_state *state;
 
@@ -1285,7 +1285,7 @@ uInt *dictLength;
 int ZEXPORT inflateSetDictionary(strm, dictionary, dictLength)
 z_stream *strm;
 const unsigned char *dictionary;
-uInt dictLength;
+unsigned int dictLength;
 {
     struct inflate_state *state;
     unsigned long dictid;
