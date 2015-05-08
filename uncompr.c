@@ -23,9 +23,9 @@
 */
 int ZEXPORT uncompress (dest, destLen, source, sourceLen)
     unsigned char *dest;
-    uLong *destLen;
+    unsigned long *destLen;
     const unsigned char *source;
-    uLong sourceLen;
+    unsigned long sourceLen;
 {
     z_stream stream;
     int err;
@@ -34,7 +34,7 @@ int ZEXPORT uncompress (dest, destLen, source, sourceLen)
     stream.avail_in = (unsigned int)sourceLen;
     stream.next_out = dest;
     stream.avail_out = (unsigned int)*destLen;
-    if ((uLong)stream.avail_out != *destLen) return Z_BUF_ERROR;
+    if ((unsigned long)stream.avail_out != *destLen) return Z_BUF_ERROR;
 
     stream.zalloc = (alloc_func)0;
     stream.zfree = (free_func)0;

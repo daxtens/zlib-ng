@@ -21,9 +21,9 @@
 */
 int ZEXPORT compress2 (dest, destLen, source, sourceLen, level)
     unsigned char *dest;
-    uLong *destLen;
+    unsigned long *destLen;
     const unsigned char *source;
-    uLong sourceLen;
+    unsigned long sourceLen;
     int level;
 {
     z_stream stream;
@@ -33,7 +33,7 @@ int ZEXPORT compress2 (dest, destLen, source, sourceLen, level)
     stream.avail_in = (unsigned int)sourceLen;
     stream.next_out = dest;
     stream.avail_out = (unsigned int)*destLen;
-    if ((uLong)stream.avail_out != *destLen) return Z_BUF_ERROR;
+    if ((unsigned long)stream.avail_out != *destLen) return Z_BUF_ERROR;
 
     stream.zalloc = (alloc_func)0;
     stream.zfree = (free_func)0;
@@ -57,9 +57,9 @@ int ZEXPORT compress2 (dest, destLen, source, sourceLen, level)
  */
 int ZEXPORT compress (dest, destLen, source, sourceLen)
     unsigned char *dest;
-    uLong *destLen;
+    unsigned long *destLen;
     const unsigned char *source;
-    uLong sourceLen;
+    unsigned long sourceLen;
 {
     return compress2(dest, destLen, source, sourceLen, Z_DEFAULT_COMPRESSION);
 }
@@ -68,8 +68,8 @@ int ZEXPORT compress (dest, destLen, source, sourceLen)
      If the default memLevel or windowBits for deflateInit() is changed, then
    this function needs to be updated.
  */
-uLong ZEXPORT compressBound (sourceLen)
-    uLong sourceLen;
+unsigned long ZEXPORT compressBound (sourceLen)
+    unsigned long sourceLen;
 {
     return sourceLen + (sourceLen >> 12) + (sourceLen >> 14) +
            (sourceLen >> 25) + 13;

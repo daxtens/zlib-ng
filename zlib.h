@@ -92,11 +92,11 @@ struct internal_state;
 typedef struct z_stream_s {
     const unsigned char *next_in;     /* next input byte */
     unsigned int     avail_in;  /* number of bytes available at next_in */
-    uLong    total_in;  /* total number of input bytes read so far */
+    unsigned long    total_in;  /* total number of input bytes read so far */
 
     unsigned char    *next_out; /* next output byte should be put there */
     unsigned int     avail_out; /* remaining free space at next_out */
-    uLong    total_out; /* total number of bytes output so far */
+    unsigned long    total_out; /* total number of bytes output so far */
 
     const char *msg;  /* last error message, NULL if no error */
     struct internal_state *state; /* not visible by applications */
@@ -106,8 +106,8 @@ typedef struct z_stream_s {
     void      *opaque;  /* private data object passed to zalloc and zfree */
 
     int     data_type;  /* best guess about the data type: binary or text */
-    uLong   adler;      /* adler32 value of the uncompressed data */
-    uLong   reserved;   /* reserved for future use */
+    unsigned long   adler;      /* adler32 value of the uncompressed data */
+    unsigned long   reserved;   /* reserved for future use */
 } z_stream;
 
 typedef z_stream *z_streamp; // Obsolete type, retained for compatability only
@@ -118,7 +118,7 @@ typedef z_stream *z_streamp; // Obsolete type, retained for compatability only
 */
 typedef struct gz_header_s {
     int     text;       /* true if compressed data believed to be text */
-    uLong   time;       /* modification time */
+    unsigned long   time;       /* modification time */
     int     xflags;     /* extra flags (not used when writing a gzip file) */
     int     os;         /* operating system */
     unsigned char   *extra;     /* pointer to extra field or Z_NULL if none */
@@ -693,8 +693,8 @@ ZEXTERN int ZEXPORT deflateTune (z_stream *strm,
    returns Z_OK on success, or Z_STREAM_ERROR for an invalid deflate stream.
  */
 
-ZEXTERN uLong ZEXPORT deflateBound (z_stream *strm,
-                                       uLong sourceLen);
+ZEXTERN unsigned long ZEXPORT deflateBound (z_stream *strm,
+                                       unsigned long sourceLen);
 /*
      deflateBound() returns an upper bound on the compressed size after
    deflation of sourceLen bytes.  It must be called after deflateInit() or
@@ -1102,12 +1102,12 @@ ZEXTERN int ZEXPORT inflateBackEnd (z_stream *strm);
    state was inconsistent.
 */
 
-ZEXTERN uLong ZEXPORT zlibCompileFlags (void);
+ZEXTERN unsigned long ZEXPORT zlibCompileFlags (void);
 /* Return flags indicating compile-time options.
 
     Type sizes, two bits each, 00 = 16 bits, 01 = 32, 10 = 64, 11 = other:
      1.0: size of unsigned int
-     3.2: size of uLong
+     3.2: size of unsigned long
      5.4: size of void * (pointer)
      7.6: size of z_off_t
 
@@ -1155,8 +1155,8 @@ ZEXTERN uLong ZEXPORT zlibCompileFlags (void);
    you need special options.
 */
 
-ZEXTERN int ZEXPORT compress (unsigned char *dest,   uLong *destLen,
-                                 const unsigned char *source, uLong sourceLen);
+ZEXTERN int ZEXPORT compress (unsigned char *dest,   unsigned long *destLen,
+                                 const unsigned char *source, unsigned long sourceLen);
 /*
      Compresses the source buffer into the destination buffer.  sourceLen is
    the byte length of the source buffer.  Upon entry, destLen is the total size
@@ -1169,8 +1169,8 @@ ZEXTERN int ZEXPORT compress (unsigned char *dest,   uLong *destLen,
    buffer.
 */
 
-ZEXTERN int ZEXPORT compress2 (unsigned char *dest,   uLong *destLen,
-                                  const unsigned char *source, uLong sourceLen,
+ZEXTERN int ZEXPORT compress2 (unsigned char *dest,   unsigned long *destLen,
+                                  const unsigned char *source, unsigned long sourceLen,
                                   int level);
 /*
      Compresses the source buffer into the destination buffer.  The level
@@ -1185,15 +1185,15 @@ ZEXTERN int ZEXPORT compress2 (unsigned char *dest,   uLong *destLen,
    Z_STREAM_ERROR if the level parameter is invalid.
 */
 
-ZEXTERN uLong ZEXPORT compressBound (uLong sourceLen);
+ZEXTERN unsigned long ZEXPORT compressBound (unsigned long sourceLen);
 /*
      compressBound() returns an upper bound on the compressed size after
    compress() or compress2() on sourceLen bytes.  It would be used before a
    compress() or compress2() call to allocate the destination buffer.
 */
 
-ZEXTERN int ZEXPORT uncompress (unsigned char *dest,   uLong *destLen,
-                                   const unsigned char *source, uLong sourceLen);
+ZEXTERN int ZEXPORT uncompress (unsigned char *dest,   unsigned long *destLen,
+                                   const unsigned char *source, unsigned long sourceLen);
 /*
      Decompresses the source buffer into the destination buffer.  sourceLen is
    the byte length of the source buffer.  Upon entry, destLen is the total size
@@ -1563,7 +1563,7 @@ ZEXTERN void ZEXPORT gzclearerr (gzFile file);
    library.
 */
 
-ZEXTERN uLong ZEXPORT adler32 (uLong adler, const unsigned char *buf, unsigned int len);
+ZEXTERN unsigned long ZEXPORT adler32 (unsigned long adler, const unsigned char *buf, unsigned int len);
 /*
      Update a running Adler-32 checksum with the bytes buf[0..len-1] and
    return the updated checksum.  If buf is Z_NULL, this function returns the
@@ -1574,7 +1574,7 @@ ZEXTERN uLong ZEXPORT adler32 (uLong adler, const unsigned char *buf, unsigned i
 
    Usage example:
 
-     uLong adler = adler32(0L, Z_NULL, 0);
+     unsigned long adler = adler32(0L, Z_NULL, 0);
 
      while (read_buffer(buffer, length) != EOF) {
        adler = adler32(adler, buffer, length);
@@ -1583,7 +1583,7 @@ ZEXTERN uLong ZEXPORT adler32 (uLong adler, const unsigned char *buf, unsigned i
 */
 
 /*
-ZEXTERN uLong ZEXPORT adler32_combine (uLong adler1, uLong adler2,
+ZEXTERN unsigned long ZEXPORT adler32_combine (unsigned long adler1, unsigned long adler2,
                                           z_off_t len2);
 
      Combine two Adler-32 checksums into one.  For two sequences of bytes, seq1
@@ -1594,7 +1594,7 @@ ZEXTERN uLong ZEXPORT adler32_combine (uLong adler1, uLong adler2,
    negative, the result has no meaning or utility.
 */
 
-ZEXTERN uLong ZEXPORT crc32   (uLong crc, const unsigned char *buf, unsigned int len);
+ZEXTERN unsigned long ZEXPORT crc32   (unsigned long crc, const unsigned char *buf, unsigned int len);
 /*
      Update a running CRC-32 with the bytes buf[0..len-1] and return the
    updated CRC-32.  If buf is Z_NULL, this function returns the required
@@ -1603,7 +1603,7 @@ ZEXTERN uLong ZEXPORT crc32   (uLong crc, const unsigned char *buf, unsigned int
 
    Usage example:
 
-     uLong crc = crc32(0L, Z_NULL, 0);
+     unsigned long crc = crc32(0L, Z_NULL, 0);
 
      while (read_buffer(buffer, length) != EOF) {
        crc = crc32(crc, buffer, length);
@@ -1612,7 +1612,7 @@ ZEXTERN uLong ZEXPORT crc32   (uLong crc, const unsigned char *buf, unsigned int
 */
 
 /*
-ZEXTERN uLong ZEXPORT crc32_combine (uLong crc1, uLong crc2, z_off_t len2);
+ZEXTERN unsigned long ZEXPORT crc32_combine (unsigned long crc1, unsigned long crc2, z_off_t len2);
 
      Combine two CRC-32 check values into one.  For two sequences of bytes,
    seq1 and seq2 with lengths len1 and len2, CRC-32 check values were
@@ -1683,8 +1683,8 @@ ZEXTERN int ZEXPORT gzgetc_ (gzFile file);  /* backward compatibility */
    ZEXTERN z_off64_t ZEXPORT gzseek64 (gzFile, z_off64_t, int);
    ZEXTERN z_off64_t ZEXPORT gztell64 (gzFile);
    ZEXTERN z_off64_t ZEXPORT gzoffset64 (gzFile);
-   ZEXTERN uLong ZEXPORT adler32_combine64 (uLong, uLong, z_off64_t);
-   ZEXTERN uLong ZEXPORT crc32_combine64 (uLong, uLong, z_off64_t);
+   ZEXTERN unsigned long ZEXPORT adler32_combine64 (unsigned long, unsigned long, z_off64_t);
+   ZEXTERN unsigned long ZEXPORT crc32_combine64 (unsigned long, unsigned long, z_off64_t);
 #endif
 
 #if !defined(ZLIB_INTERNAL) && defined(Z_WANT64)
@@ -1708,22 +1708,22 @@ ZEXTERN int ZEXPORT gzgetc_ (gzFile file);  /* backward compatibility */
      ZEXTERN z_off_t ZEXPORT gzseek64 (gzFile, z_off_t, int);
      ZEXTERN z_off_t ZEXPORT gztell64 (gzFile);
      ZEXTERN z_off_t ZEXPORT gzoffset64 (gzFile);
-     ZEXTERN uLong ZEXPORT adler32_combine64 (uLong, uLong, z_off_t);
-     ZEXTERN uLong ZEXPORT crc32_combine64 (uLong, uLong, z_off_t);
+     ZEXTERN unsigned long ZEXPORT adler32_combine64 (unsigned long, unsigned long, z_off_t);
+     ZEXTERN unsigned long ZEXPORT crc32_combine64 (unsigned long, unsigned long, z_off_t);
 #  endif
 #else
    ZEXTERN gzFile ZEXPORT gzopen (const char *, const char *);
    ZEXTERN z_off_t ZEXPORT gzseek (gzFile, z_off_t, int);
    ZEXTERN z_off_t ZEXPORT gztell (gzFile);
    ZEXTERN z_off_t ZEXPORT gzoffset (gzFile);
-   ZEXTERN uLong ZEXPORT adler32_combine (uLong, uLong, z_off_t);
-   ZEXTERN uLong ZEXPORT crc32_combine (uLong, uLong, z_off_t);
+   ZEXTERN unsigned long ZEXPORT adler32_combine (unsigned long, unsigned long, z_off_t);
+   ZEXTERN unsigned long ZEXPORT crc32_combine (unsigned long, unsigned long, z_off_t);
 #endif
 
 #else /* Z_SOLO */
 
-   ZEXTERN uLong ZEXPORT adler32_combine (uLong, uLong, z_off_t);
-   ZEXTERN uLong ZEXPORT crc32_combine (uLong, uLong, z_off_t);
+   ZEXTERN unsigned long ZEXPORT adler32_combine (unsigned long, unsigned long, z_off_t);
+   ZEXTERN unsigned long ZEXPORT crc32_combine (unsigned long, unsigned long, z_off_t);
 
 #endif /* !Z_SOLO */
 

@@ -47,7 +47,7 @@
 /* Local functions for crc concatenation */
 local unsigned long gf2_matrix_times (unsigned long *mat, unsigned long vec);
 local void gf2_matrix_square (unsigned long *square, unsigned long *mat);
-local uLong crc32_combine_ (uLong crc1, uLong crc2, z_off64_t len2);
+local unsigned long crc32_combine_ (unsigned long crc1, unsigned long crc2, z_off64_t len2);
 
 
 #ifdef DYNAMIC_CRC_TABLE
@@ -355,7 +355,7 @@ local void gf2_matrix_square(unsigned long *square, unsigned long *mat)
 }
 
 /* ========================================================================= */
-local uLong crc32_combine_(uLong crc1, uLong crc2, z_off64_t len2)
+local unsigned long crc32_combine_(unsigned long crc1, unsigned long crc2, z_off64_t len2)
 {
     int n;
     unsigned long row;
@@ -408,17 +408,17 @@ local uLong crc32_combine_(uLong crc1, uLong crc2, z_off64_t len2)
 }
 
 /* ========================================================================= */
-uLong ZEXPORT crc32_combine(crc1, crc2, len2)
-    uLong crc1;
-    uLong crc2;
+unsigned long ZEXPORT crc32_combine(crc1, crc2, len2)
+    unsigned long crc1;
+    unsigned long crc2;
     z_off_t len2;
 {
     return crc32_combine_(crc1, crc2, len2);
 }
 
-uLong ZEXPORT crc32_combine64(crc1, crc2, len2)
-    uLong crc1;
-    uLong crc2;
+unsigned long ZEXPORT crc32_combine64(crc1, crc2, len2)
+    unsigned long crc1;
+    unsigned long crc2;
     z_off64_t len2;
 {
     return crc32_combine_(crc1, crc2, len2);

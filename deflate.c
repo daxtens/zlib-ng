@@ -609,12 +609,12 @@ int ZEXPORT deflateTune(strm, good_length, max_lazy, nice_length, max_chain)
  * upper bound of about 14% expansion does not seem onerous for output buffer
  * allocation.
  */
-uLong ZEXPORT deflateBound(strm, sourceLen)
+unsigned long ZEXPORT deflateBound(strm, sourceLen)
     z_stream *strm;
-    uLong sourceLen;
+    unsigned long sourceLen;
 {
     deflate_state *s;
-    uLong complen, wraplen;
+    unsigned long complen, wraplen;
     unsigned char *str;
 
     /* conservative upper bound for compressed data */
