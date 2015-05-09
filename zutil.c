@@ -6,9 +6,7 @@
 /* @(#) $Id$ */
 
 #include "zutil.h"
-#ifndef Z_SOLO
-#  include "gzguts.h"
-#endif
+#include "gzguts.h"
 
 const char * const z_errmsg[10] = {
 "need dictionary",     /* Z_NEED_DICT       2  */
@@ -107,8 +105,6 @@ const char * ZEXPORT zError(err)
     return ERR_MSG(err);
 }
 
-#ifndef Z_SOLO
-
 #ifndef MY_ZCALLOC /* Any system without a special alloc function */
 
 void ZLIB_INTERNAL *zcalloc (void *opaque, unsigned items, unsigned size)
@@ -125,5 +121,3 @@ void ZLIB_INTERNAL zcfree (void *opaque, void *ptr)
 }
 
 #endif /* MY_ZCALLOC */
-
-#endif /* !Z_SOLO */

@@ -39,28 +39,6 @@ void test_dict_inflate  (unsigned char *compr, unsigned long comprLen, unsigned 
 int  main               (int argc, char *argv[]);
 
 
-#ifdef Z_SOLO
-
-void *myalloc (void *, unsigned, unsigned);
-void myfree (void *, void *);
-
-void *myalloc(void *q, unsigned n, unsigned m)
-{
-    q = Z_NULL;
-    return calloc(n, m);
-}
-
-void myfree(void *q, void *p)
-{
-    q = Z_NULL;
-    free(p);
-}
-
-static alloc_func zalloc = myalloc;
-static free_func zfree = myfree;
-
-#else /* !Z_SOLO */
-
 static alloc_func zalloc = (alloc_func)0;
 static free_func zfree = (free_func)0;
 
@@ -173,8 +151,6 @@ void test_gzio(const char *fname, unsigned char *uncompr, unsigned long uncomprL
     gzclose(file);
 #endif
 }
-
-#endif /* Z_SOLO */
 
 /* ===========================================================================
  * Test deflate() with small buffers
@@ -536,14 +512,10 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-#ifdef Z_SOLO
-    argc = strlen(argv[0]);
-#else
     test_compress(compr, comprLen, uncompr, uncomprLen);
 
     test_gzio((argc > 1 ? argv[1] : TESTFILE),
               uncompr, uncomprLen);
-#endif
 
     test_deflate(compr, comprLen);
     test_inflate(compr, comprLen, uncompr, uncomprLen);

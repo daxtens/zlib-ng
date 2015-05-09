@@ -90,7 +90,6 @@ includedir=${includedir-'${prefix}/include'}
 mandir=${mandir-'${prefix}/share/man'}
 shared_ext='.so'
 shared=1
-solo=0
 cover=0
 zconst=0
 build64=0
@@ -137,7 +136,6 @@ case "$1" in
     -i* | --includedir) includedir="$2"; shift; shift ;;
     -s* | --shared | --enable-shared) shared=1; shift ;;
     -t | --static) shared=0; shift ;;
-    --solo) solo=1; shift ;;
     --cover) cover=1; shift ;;
     -6* | --64) build64=1; shift ;;
     -a*=* | --archs=*) ARCHS=`echo $1 | sed 's/.*=//'`; shift ;;
@@ -453,17 +451,6 @@ if try $CC -c $CFLAGS $test.c; then
   echo "Checking for stdarg.h... Yes." | tee -a configure.log
 else
   echo "Checking for stdarg.h... No." | tee -a configure.log
-fi
-
-# if --solo compilation was requested, save that in zconf.h and remove gz stuff from object lists
-if test $solo -eq 1; then
-  sed '/#define ZCONF_H/a\
-#define Z_SOLO
-
-' < zconf.h > zconf.temp.h
-  mv zconf.temp.h zconf.h
-OBJC='$(OBJZ)'
-PIC_OBJC='$(PIC_OBJZ)'
 fi
 
 # if code coverage testing was requested, use older gcc if defined, e.g. "gcc-4.2" on Mac OS X
