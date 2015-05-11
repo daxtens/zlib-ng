@@ -343,7 +343,7 @@ int ZEXPORT deflateInit2_(strm, level, method, windowBits, memLevel, strategy,
     s->lit_bufsize = 1 << (memLevel + 6); /* 16K elements by default */
 
     overlay = (ush *) ZALLOC(strm, s->lit_bufsize, sizeof(ush)+2);
-    s->pending_buf = (uch *) overlay;
+    s->pending_buf = (unsigned char *) overlay;
     s->pending_buf_size = (ulg)s->lit_bufsize * (sizeof(ush)+2L);
 
     if (s->window == Z_NULL || s->prev == Z_NULL || s->head == Z_NULL ||
@@ -1080,7 +1080,7 @@ int ZEXPORT deflateCopy (dest, source)
     ds->prev   = (Pos *)  ZALLOC(dest, ds->w_size, sizeof(Pos));
     ds->head   = (Pos *)  ZALLOC(dest, ds->hash_size, sizeof(Pos));
     overlay = (ush *) ZALLOC(dest, ds->lit_bufsize, sizeof(ush)+2);
-    ds->pending_buf = (uch *) overlay;
+    ds->pending_buf = (unsigned char *) overlay;
 
     if (ds->window == Z_NULL || ds->prev == Z_NULL || ds->head == Z_NULL ||
         ds->pending_buf == Z_NULL) {
