@@ -7,9 +7,7 @@
 
 #include "zutil.h"
 
-#define local static
-
-local unsigned long adler32_combine_ (unsigned long adler1, unsigned long adler2, z_off64_t len2);
+static unsigned long adler32_combine_ (unsigned long adler1, unsigned long adler2, z_off64_t len2);
 
 #define BASE 65521      /* largest prime smaller than 65536 */
 #define NMAX 5552
@@ -149,7 +147,7 @@ unsigned long ZEXPORT adler32(adler, buf, len)
 }
 
 /* ========================================================================= */
-local unsigned long adler32_combine_(unsigned long adler1, unsigned long adler2, z_off64_t len2)
+static unsigned long adler32_combine_(unsigned long adler1, unsigned long adler2, z_off64_t len2)
 {
     unsigned long sum1;
     unsigned long sum2;
