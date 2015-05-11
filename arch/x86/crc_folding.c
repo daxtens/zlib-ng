@@ -412,12 +412,12 @@ local const unsigned __attribute__((aligned(16))) crc_mask2[4] = {
     0x00000000, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF
 };
 
-unsigned ZLIB_INTERNAL crc_fold_512to32(deflate_state *const s)
+uint32_t ZLIB_INTERNAL crc_fold_512to32(deflate_state *const s)
 {
     const __m128i xmm_mask  = _mm_load_si128((__m128i *)crc_mask);
     const __m128i xmm_mask2 = _mm_load_si128((__m128i *)crc_mask2);
 
-    unsigned crc;
+    uint32_t crc;
     __m128i x_tmp0, x_tmp1, x_tmp2, crc_fold;
 
     CRC_LOAD(s)
